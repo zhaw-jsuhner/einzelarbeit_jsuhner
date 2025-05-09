@@ -7,6 +7,19 @@ await client.connect();
 const db = client.db("Football_Database"); // select database
 
 
+//Get ID Count of Leagues
+async function countLeagues() {
+  try {
+    const collection = db.collection("leagues");
+    const count = await collection.countDocuments({});
+    return count;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
+
+
 // Get all leagues
 async function getLeagues() {
   let leagues = [];
@@ -24,6 +37,25 @@ async function getLeagues() {
   }
   return leagues;
 }
+
+// Create league
+async function createLeague(league) {
+  
+  let id_counter = await countLeagues();
+  league._id = id_counter + 1;
+
+  league.logo_url = "/images/leagues/default_league.png"; //default league image
+  league.is_top5 = false; //all top 5 leagues already created
+  try {
+    const collection = db.collection("leagues");
+    const result = await collection.insertOne(league);
+    return result.insertedId;
+  } catch (error) {
+    console.log(error.message);
+  }
+  return null;
+}
+
 
 // Get all clubs
 async function getClubs() {
@@ -65,5 +97,6 @@ async function getPlayers() {
 export default {
   getLeagues,
   getClubs,
-  getPlayers
+  getPlayers,
+  createLeague
 };

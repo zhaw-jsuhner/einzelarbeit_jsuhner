@@ -34,18 +34,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .league-card {
-    width: 100%;
-    max-width: 280px;
-    margin-top: 1rem auto;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition:
-      transform 0.2s ease-in-out,
-      box-shadow 0.2s;
-  }
-
-</style>
