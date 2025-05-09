@@ -1,0 +1,26 @@
+  .card-img-top {
+    object-fit: contain;
+    height: 180px;
+    background-color: #f8f9fa;
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .btn-primary {
+    border-radius: 999px;
+    padding: 0.5rem 1.25rem;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }

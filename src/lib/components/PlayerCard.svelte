@@ -1,5 +1,5 @@
 <script>
-  let { club } = $props();
+  let { player } = $props();
 </script>
 
 <div class="container my-5">
@@ -7,12 +7,12 @@
     <div class=" d-flex justify-content-center">
       <div class="card league-card">
         <img
-          class="card-img-top"
-          src={club.badge_url}
-          alt={club.club_name}
+          class="card-img-top player-card-img-top"
+          src={player.image_url}
+          alt={player.player_name}
         />       
         <div class="card-body text-center">
-          <h5 class="card-title">{club.club_name}</h5>
+          <h5 class="card-title">{player.player_name}</h5>
 
         </div>
       </div>
@@ -31,6 +31,10 @@
     transition:
       transform 0.2s ease-in-out,
       box-shadow 0.2s;
+  }
+
+  .player-card-img-top {
+    padding: 0 !important
   }
 
 </style>

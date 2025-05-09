@@ -43,9 +43,27 @@ async function getClubs() {
   return clubs;
 }
 
+// Get all players
+async function getPlayers() {
+  let players = [];
+  try {
+    const collection = db.collection("players");
+
+    const query = {};
+    
+    players = await collection.find(query).toArray();
+    players.forEach((player) => {
+      player._id = player._id.toString(); 
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return players;
+}
 
 // export all functions so that they can be used in other files
 export default {
   getLeagues,
-  getClubs
+  getClubs,
+  getPlayers
 };

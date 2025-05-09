@@ -32,6 +32,11 @@
             >Clubs</a
           >
         </li>
+                <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/players"
+            >Players</a
+          >
+        </li>
       </ul>
     </div>
   </div>
