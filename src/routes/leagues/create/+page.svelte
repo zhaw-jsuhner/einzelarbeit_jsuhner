@@ -13,7 +13,7 @@
   <h1 class="mb-4">Add a league</h1>
 
   {#if form?.success}
-    <div class="alert alert-success" role="alert">League + {league_name_input} + created</div>
+    <div class="alert alert-success" role="alert">League created</div>
   {/if}
 
   <!-- Formular -->

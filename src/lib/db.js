@@ -38,6 +38,50 @@ async function getLeagues() {
   return leagues;
 }
 
+
+// Get league by id
+async function getLeague(id) {
+  let league = null;
+  try {
+    const collection = db.collection("leagues");
+    const query = { _id: parseInt(id) }; //no new ObjectId(id) needed because of numeric IDs
+    league = await collection.findOne(query);
+
+    if (!league) {
+      console.log("No league with id " + id);
+    } else {
+      league._id = league._id.toString();
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+  return league;
+}
+
+
+// Get clubs of league by fk_league
+async function getClubsOfLeague(id) {
+  
+  let clubs = [];
+  try {
+    const collection = db.collection("clubs");
+    const query = { fk_league: parseInt(id) }; //no new ObjectId(id) needed because of numeric IDs
+    clubs = await collection.find(query).toArray();
+
+    if (clubs.length <= 1) {
+      console.log("No clubs found with league id " + id);
+    } else {
+      clubs.forEach((club) => {
+      club._id = club._id.toString(); 
+    });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+   return clubs;
+}
+
+
 // Create league
 async function createLeague(league) {
   
@@ -96,7 +140,9 @@ async function getPlayers() {
 // export all functions so that they can be used in other files
 export default {
   getLeagues,
+  getLeague,
+  getClubsOfLeague,
+  createLeague,
   getClubs,
-  getPlayers,
-  createLeague
+  getPlayers
 };

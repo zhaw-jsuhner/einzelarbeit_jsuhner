@@ -12,23 +12,7 @@
           alt={league.league_name}
         />
         <div class="card-body text-center">
-          <h5 class="card-title">{league.league_name}</h5>
-
-          <!-- Horizontal buttons -->
-          <div class="d-flex justify-content-center gap-2 mt-3">
-            <a
-              href=""
-              class="btn btn-primary flex-fill text-nowrap"
-            >
-              Clubs
-            </a>
-            <a
-              href=""
-              class="btn btn-primary flex-fill text-nowrap"
-            >
-              Players
-            </a>
-          </div>
+          <h5 class="card-title"><a href={"/leagues/" + league._id}>{league.league_name}</a></h5>
         </div>
       </div>
     </div>
