@@ -19,6 +19,18 @@ async function countLeagues() {
   }
 }
 
+//Get ID Count of Clubs
+async function countClubs() {
+  try {
+    const collection = db.collection("clubs");
+    const count = await collection.countDocuments({});
+    return count;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
+
 //Get ID Count of Players
 async function countPlayers() {
   try {
@@ -239,6 +251,27 @@ async function getClub(id) {
 }
 
 
+// Create club
+async function createClub(club) {
+
+  let id_counter = await countClubs();
+  club._id = id_counter + 1;
+
+  club.fk_league = 3;
+  club.badge_url = "/images/clubs/default_club.png";
+
+  try {
+    const collection = db.collection("clubs");
+    const result = await collection.insertOne(club);
+    return result.insertedId;
+  } catch (error) {
+    console.log(error.message);
+  }
+  return null;
+}
+
+
+
 // Get all players of a club
 async function getPlayersOfClub(id) {
   let players = [];
@@ -395,6 +428,7 @@ export default {
   createLeague,
   getClubs,
   getClub,
+  createClub,
   getPlayersOfClub,
   getPlayers,
   createPlayer

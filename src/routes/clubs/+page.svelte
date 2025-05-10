@@ -8,6 +8,12 @@
 </script>
 
 <h2 class="text-center">Clubs</h2>
+<br>
+
+<a href="/clubs/create" id="addButton" class="btn btn-primary flex-fill text-nowrap">
+  + Add club
+</a>
+
 
 <div class="row">
   {#each clubs as club}
