@@ -87,8 +87,53 @@ async function getPlayersOfLeague(clubIDs) {
   let players = [];
   try {
     const collection = db.collection("players");
-    const query = { club_id: { $in: clubIDs.map(id => parseInt(id)) } };
-    players = await collection.find(query).toArray();
+    const query = [
+      {
+        $match: {
+          club_id: { $in: clubIDs.map(id => parseInt(id)) }
+        }
+      },
+      {
+        $lookup: {
+          from: "clubs",
+          localField: "club_id",
+          foreignField: "_id",
+          as: "club"
+        }
+      },
+      {
+        $lookup: {
+          from: "countries",
+          localField: "nationality",
+          foreignField: "country_name",
+          as: "nationality_obj"
+        }
+      },
+      {
+        $unwind: {
+          path: "$club"
+        }
+      },
+      {
+        $unwind: {
+          path: "$nationality_obj"
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          player_name: 1,
+          birthdate: 1,
+          nationality: 1,
+          position: 1,
+          image_url: 1,
+          club_name: "$club.club_name",
+          club_logo: "$club.badge_url",
+          nationality_code: "$nationality_obj.iso_code"
+        }
+      }
+    ];
+    players = await collection.aggregate(query).toArray();
 
     if (players.length <= 1) {
       console.log("No players found with club id " + id);
@@ -188,8 +233,53 @@ async function getPlayersOfClub(id) {
   let players = [];
   try {
     const collection = db.collection("players");
-    const query = { club_id: parseInt(id) };
-    players = await collection.find(query).toArray();
+    const query = [
+      {
+        $match: {
+          club_id: parseInt(id)
+        }
+      },
+      {
+        $lookup: {
+          from: "clubs",
+          localField: "club_id",
+          foreignField: "_id",
+          as: "club"
+        }
+      },
+      {
+        $lookup: {
+          from: "countries",
+          localField: "nationality",
+          foreignField: "country_name",
+          as: "nationality_obj"
+        }
+      },
+      {
+        $unwind: {
+          path: "$club"
+        }
+      },
+      {
+        $unwind: {
+          path: "$nationality_obj"
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          player_name: 1,
+          birthdate: 1,
+          nationality: 1,
+          position: 1,
+          image_url: 1,
+          club_name: "$club.club_name",
+          club_logo: "$club.badge_url",
+          nationality_code: "$nationality_obj.iso_code"
+        }
+      }
+    ];
+    players = await collection.aggregate(query).toArray();
 
     if (players.length <= 1) {
       console.log("No players found with club id " + id);
