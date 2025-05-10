@@ -20,7 +20,7 @@
         src={club.badge_url}
         alt={club.club_name}
         class="img-fluid mb-3"
-        style="max-width: 300px;"
+        style="max-height: 300px;"
       />
       <ul class="list-unstyled">
         <li><strong>League:</strong> {league.league_name}</li>
