@@ -3,8 +3,10 @@
 
   let { data } = $props();
   let leagues = data.leagues;
+  let countries = data.countries;
 
   let checked = $state(false);
+  let selectedCountry = $state(); // "" = All
 </script>
 
 <h2 class="text-center">Leagues</h2>
@@ -14,11 +16,14 @@
   <div class="row align-items-center g-2">
     <!-- Country-Dropdown -->
     <div class="col-auto">
-      <select class="form-select">
+      <select class="form-select" bind:value={selectedCountry}>
         <option value="">All Countries</option>
+        {#each countries as country}
+          <option value={country}>{country}</option>
+        {/each}
       </select>
     </div>
-    <!-- Checkbox für Top 5 -->
+    <!-- Checkbox for Top 5-->
     <div class="col-auto">
       <div class="form-check">
         <input
@@ -37,13 +42,7 @@
 
 <div class="row">
   {#each leagues as league}
-    {#if checked}
-      {#if league.is_top5}
-        <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-          <LeagueCard {league} />
-        </div>
-      {/if}
-    {:else}
+    {#if (selectedCountry === "" || league.league_country === selectedCountry) && (!checked || league.is_top5)}
       <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
         <LeagueCard {league} />
       </div>

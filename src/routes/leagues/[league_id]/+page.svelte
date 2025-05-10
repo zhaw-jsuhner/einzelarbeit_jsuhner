@@ -20,8 +20,8 @@
         style="max-width: 300px;"
       />
       <ul class="list-unstyled">
-        <li><strong>Land:</strong> {league.league_country}</li>
-        <li><strong>Top 5:</strong> {league.is_top5}</li>
+        <li><strong>Country:</strong> {league.league_country}</li>
+        <li><strong>Is a top 5 league: </strong> {league.is_top5}</li>
       </ul>
     </div>
     <div class="col-lg-6">

@@ -82,6 +82,26 @@ async function getClubsOfLeague(id) {
 }
 
 
+// Get all unique countries from leagues
+async function getLeagueCountries() {
+  let countries = [];
+  try {
+    const collection = db.collection("leagues");
+
+    // Get all leagues
+    const leagues = await collection.find({}).toArray();
+
+    // Extract league_country and remove duplicates
+    const allCountries = leagues.map(league => league.league_country);
+    countries = [...new Set(allCountries)].sort(); // sorted list, no duplicates
+
+  } catch (error) {
+    console.log("Error getting countries: ", error.message);
+  }
+  return countries;
+}
+
+
 // Create league
 async function createLeague(league) {
   
@@ -142,6 +162,7 @@ export default {
   getLeagues,
   getLeague,
   getClubsOfLeague,
+  getLeagueCountries,
   createLeague,
   getClubs,
   getPlayers
