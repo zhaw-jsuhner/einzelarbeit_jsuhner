@@ -60,7 +60,7 @@
     height: 32px;
     position: absolute;
     top: 165px;
-    left: 5px;
+    left: 15px;
     background: white;
     padding: 2px;
   }
