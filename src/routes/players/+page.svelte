@@ -105,15 +105,12 @@
   </div>
 </div>
 
-<a href="/leagues/create" id="addButton" class="btn btn-primary flex-fill text-nowrap">
+<a href="/players/create" id="addButton" class="btn btn-primary flex-fill text-nowrap">
   + Add player
 </a>
 
 <div class="row">
   {#each players as player}
-    <!-- <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-      <PlayerCard {player}/>
-    </div> -->
     {#if (selectedClub === "" || player.club_name === selectedClub) && (selectedNationality === "" || player.nationality === selectedNationality) && (selectedPosition === "" || player.position === selectedPosition) && (isNaN(selectedMaxAge) || player.age <= selectedMaxAge)}
       <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
         <PlayerCard {player} />

@@ -19,6 +19,17 @@ async function countLeagues() {
   }
 }
 
+//Get ID Count of Players
+async function countPlayers() {
+  try {
+    const collection = db.collection("players");
+    const count = await collection.countDocuments({});
+    return count;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
 
 // Get all leagues
 async function getLeagues() {
@@ -353,6 +364,27 @@ async function getPlayers() {
   return players;
 }
 
+
+// Create player
+async function createPlayer(player) {
+
+  let id_counter = await countPlayers();
+  player._id = id_counter + 1;
+
+  player.club_id = 1;
+  player.image_url = "/images/players/default_player.png";
+
+  try {
+    const collection = db.collection("players");
+    const result = await collection.insertOne(player);
+    return result.insertedId;
+  } catch (error) {
+    console.log(error.message);
+  }
+  return null;
+}
+
+
 // export all functions so that they can be used in other files
 export default {
   getLeagues,
@@ -364,5 +396,6 @@ export default {
   getClubs,
   getClub,
   getPlayersOfClub,
-  getPlayers
+  getPlayers,
+  createPlayer
 };
