@@ -12,7 +12,7 @@
           alt={club.club_name}
         />       
         <div class="card-body text-center">
-          <h5 class="card-title">{club.club_name}</h5>
+          <h5 class="card-title"><a href={"/clubs/" + club._id}>{club.club_name}</a></h5>
 
         </div>
       </div>

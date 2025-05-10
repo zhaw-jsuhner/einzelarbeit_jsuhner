@@ -1,5 +1,10 @@
 <script>
   let { player } = $props();
+
+  let date = new Date(player.birthdate);
+  let formattedBirthdate = `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}.${date.getFullYear()}`;
 </script>
 
 <div class="container my-5">
@@ -13,7 +18,12 @@
         />       
         <div class="card-body text-center">
           <h5 class="card-title">{player.player_name}</h5>
-
+                      <ul class="list-unstyled mb-3">
+            <li><strong>Birthdate:</strong> {formattedBirthdate}</li>
+            <li><strong>Position:</strong> {player.position}</li>
+            <li><strong>Nationality:</strong> {player.nationality}</li>
+            <li><strong>Club:</strong> {player.club_name}</li>
+          </ul>
         </div>
       </div>
     </div>

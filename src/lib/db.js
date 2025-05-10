@@ -82,7 +82,7 @@ async function getClubsOfLeague(id) {
 }
 
 
-// Get all players of a league player_
+// Get all players of a league
 async function getPlayersOfLeague(clubIDs) {
   let players = [];
   try {
@@ -162,15 +162,82 @@ async function getClubs() {
   return clubs;
 }
 
+
+// Get club by id
+async function getClub(id) {
+  let club = null;
+  try {
+    const collection = db.collection("clubs");
+    const query = { _id: parseInt(id) }; //no new ObjectId(id) needed because of numeric IDs
+    club = await collection.findOne(query);
+
+    if (!club) {
+      console.log("No club with id " + id);
+    } else {
+      club._id = club._id.toString();
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+  return club;
+}
+
+
+// Get all players of a club
+async function getPlayersOfClub(id) {
+  let players = [];
+  try {
+    const collection = db.collection("players");
+    const query = {club_id: parseInt(id)};
+    players = await collection.find(query).toArray();
+
+    if (players.length <= 1) {
+      console.log("No players found with club id " + id);
+    } else {
+      players.forEach((player) => {
+      player._id = player._id.toString(); 
+    });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+   return players;
+}
+
+
 // Get all players
 async function getPlayers() {
   let players = [];
   try {
     const collection = db.collection("players");
 
-    const query = {};
+    const query = [{
+        $lookup: {
+          from: "clubs",
+          localField: "club_id",
+          foreignField: "_id",
+          as: "club"
+        }
+      },
+      {
+        $unwind: {
+          path: "$club"
+        }
+      },
+      {
+        "$project": {
+          _id: 1,
+          player_name: 1,
+          birthdate: 1,
+          nationality: 1,
+          position: 1,
+          image_url: 1,
+          club_name: "$club.club_name",
+          club_logo: "$club.badge_url"
+        }
+      }];
     
-    players = await collection.find(query).toArray();
+    players = await collection.aggregate(query).toArray();
     players.forEach((player) => {
       player._id = player._id.toString(); 
     });
@@ -189,5 +256,7 @@ export default {
   getLeagueCountries,
   createLeague,
   getClubs,
+  getClub,
+  getPlayersOfClub,
   getPlayers
 };

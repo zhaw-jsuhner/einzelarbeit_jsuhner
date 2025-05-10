@@ -55,7 +55,7 @@
         <div class="card league-card">
           <img src="/images/plus.png" alt="" class="card-img-top" />
           <div class="card-body text-center">
-            <div class="d-flex justify-content-center gap-2 mt-3">
+            <div class="d-flex justify-content-center gap-2">
               <a
                 href="/leagues/create"
                 class="btn btn-primary flex-fill text-nowrap"
