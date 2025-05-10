@@ -38,3 +38,33 @@
 a {
   color: #212529;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.filterBar {
+  margin-bottom: 30px !important;
+}
+
+.filterBar div {
+  margin-right: 15px;
+}
+
+#addButton {
+  display: initial;
+}

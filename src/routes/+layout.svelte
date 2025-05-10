@@ -45,3 +45,13 @@
 <div class="container mt-3">
   {@render children()}
 </div>
+
+<br>
+<br>
+<br>
+
+<footer class="bg-dark text-white text-center py-4 mt-5">
+  <div class="container">
+    <p class="mb-0">&copy; 2025 Football Player Database. All rights reserved.</p>
+  </div>
+</footer>

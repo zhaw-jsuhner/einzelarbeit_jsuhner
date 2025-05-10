@@ -7,7 +7,6 @@
     let newestPlayers = players.slice(-3); // Get the last 3
 </script>
 
-<!-- Hero Section -->
 <header class="bg-dark text-white py-5">
     <div class="container text-center">
         <h1 class="display-4 fw-bold">Discover Football’s Rising Stars</h1>
@@ -62,15 +61,8 @@
         </div>
       </div>
     </div>
-
-    <div class="mt-5">
-      <blockquote class="blockquote text-center">
-        <p class="mb-0 fst-italic">"Whether you're building a scouting tool, a fantasy league database, or just exploring your passion for the game — this app gives you the freedom to create and explore football from every angle."</p>
-      </blockquote>
-    </div>
   </div>
 </section>
-
 
 <!-- Newest Players Section -->
 <section id="new-players" class="py-5">
