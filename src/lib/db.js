@@ -65,7 +65,7 @@ async function getClubsOfLeague(id) {
   let clubs = [];
   try {
     const collection = db.collection("clubs");
-    const query = { fk_league: parseInt(id) }; //no new ObjectId(id) needed because of numeric IDs
+    const query = { fk_league: parseInt(id) };
     clubs = await collection.find(query).toArray();
 
     if (clubs.length <= 1) {
@@ -79,6 +79,28 @@ async function getClubsOfLeague(id) {
     console.log(error.message);
   }
    return clubs;
+}
+
+
+// Get all players of a league player_
+async function getPlayersOfLeague(clubIDs) {
+  let players = [];
+  try {
+    const collection = db.collection("players");
+    const query = {club_id: { $in: clubIDs.map(id => parseInt(id))}};
+    players = await collection.find(query).toArray();
+
+    if (players.length <= 1) {
+      console.log("No players found with club id " + id);
+    } else {
+      players.forEach((player) => {
+      player._id = player._id.toString(); 
+    });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+   return players;
 }
 
 
@@ -100,6 +122,7 @@ async function getLeagueCountries() {
   }
   return countries;
 }
+
 
 
 // Create league
@@ -162,6 +185,7 @@ export default {
   getLeagues,
   getLeague,
   getClubsOfLeague,
+  getPlayersOfLeague,
   getLeagueCountries,
   createLeague,
   getClubs,

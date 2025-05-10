@@ -9,7 +9,7 @@
   let selectedCountry = $state(); // "" = All
 </script>
 
-<h2 class="text-center">Leagues</h2>
+<h2 class="text-center">Leagues {selectedCountry}</h2>
 
 <!-- Filter-Leiste -->
 <div class="container mb-4">
