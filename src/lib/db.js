@@ -30,7 +30,7 @@ async function getLeagues() {
 
     leagues = await collection.find(query).toArray();
     leagues.forEach((league) => {
-      league._id = league._id.toString(); 
+      league._id = league._id.toString();
     });
   } catch (error) {
     console.log(error);
@@ -61,7 +61,7 @@ async function getLeague(id) {
 
 // Get clubs of league by fk_league
 async function getClubsOfLeague(id) {
-  
+
   let clubs = [];
   try {
     const collection = db.collection("clubs");
@@ -72,13 +72,13 @@ async function getClubsOfLeague(id) {
       console.log("No clubs found with league id " + id);
     } else {
       clubs.forEach((club) => {
-      club._id = club._id.toString(); 
-    });
+        club._id = club._id.toString();
+      });
     }
   } catch (error) {
     console.log(error.message);
   }
-   return clubs;
+  return clubs;
 }
 
 
@@ -87,20 +87,20 @@ async function getPlayersOfLeague(clubIDs) {
   let players = [];
   try {
     const collection = db.collection("players");
-    const query = {club_id: { $in: clubIDs.map(id => parseInt(id))}};
+    const query = { club_id: { $in: clubIDs.map(id => parseInt(id)) } };
     players = await collection.find(query).toArray();
 
     if (players.length <= 1) {
       console.log("No players found with club id " + id);
     } else {
       players.forEach((player) => {
-      player._id = player._id.toString(); 
-    });
+        player._id = player._id.toString();
+      });
     }
   } catch (error) {
     console.log(error.message);
   }
-   return players;
+  return players;
 }
 
 
@@ -127,7 +127,7 @@ async function getLeagueCountries() {
 
 // Create league
 async function createLeague(league) {
-  
+
   let id_counter = await countLeagues();
   league._id = id_counter + 1;
 
@@ -151,10 +151,10 @@ async function getClubs() {
     const collection = db.collection("clubs");
 
     const query = {};
-    
+
     clubs = await collection.find(query).toArray();
     clubs.forEach((club) => {
-      club._id = club._id.toString(); 
+      club._id = club._id.toString();
     });
   } catch (error) {
     console.log(error);
@@ -188,20 +188,20 @@ async function getPlayersOfClub(id) {
   let players = [];
   try {
     const collection = db.collection("players");
-    const query = {club_id: parseInt(id)};
+    const query = { club_id: parseInt(id) };
     players = await collection.find(query).toArray();
 
     if (players.length <= 1) {
       console.log("No players found with club id " + id);
     } else {
       players.forEach((player) => {
-      player._id = player._id.toString(); 
-    });
+        player._id = player._id.toString();
+      });
     }
   } catch (error) {
     console.log(error.message);
   }
-   return players;
+  return players;
 }
 
 
@@ -211,7 +211,8 @@ async function getPlayers() {
   try {
     const collection = db.collection("players");
 
-    const query = [{
+    const query = [
+      {
         $lookup: {
           from: "clubs",
           localField: "club_id",
@@ -220,12 +221,25 @@ async function getPlayers() {
         }
       },
       {
+        $lookup: {
+          from: "countries",
+          localField: "nationality",
+          foreignField: "country_name",
+          as: "nationality_obj"
+        }
+      },
+      {
         $unwind: {
           path: "$club"
         }
       },
       {
-        "$project": {
+        $unwind: {
+          path: "$nationality_obj"
+        }
+      },
+      {
+        $project: {
           _id: 1,
           player_name: 1,
           birthdate: 1,
@@ -233,13 +247,15 @@ async function getPlayers() {
           position: 1,
           image_url: 1,
           club_name: "$club.club_name",
-          club_logo: "$club.badge_url"
+          club_logo: "$club.badge_url",
+          nationality_code: "$nationality_obj.iso_code"
         }
-      }];
-    
+      }
+    ];
+
     players = await collection.aggregate(query).toArray();
     players.forEach((player) => {
-      player._id = player._id.toString(); 
+      player._id = player._id.toString();
     });
   } catch (error) {
     console.log(error);
