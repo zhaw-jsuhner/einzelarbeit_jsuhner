@@ -37,17 +37,3 @@
     </div>
   </div>
 </div>
-
-<style>
-
-  .flag-overlay {
-    width: 48px;
-    height: 32px;
-    position: absolute;
-    top: 165px;
-    left: 15px;
-    background: white;
-    padding: 2px;
-  }
-
-</style>
