@@ -6,7 +6,6 @@
   let players = data.players;
   let clubs = data.clubs;
 
-  let checked = $state(false);
   let selectedClub = $state();
   let selectedNationality = $state();
   let selectedPosition = $state();
