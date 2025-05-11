@@ -35,20 +35,12 @@
   transition: transform 0.2s ease-in-out, box-shadow 0.2s;
 }
 
+.player-card-img-top {
+  padding: 0 !important;
+}
+
 a {
   color: #212529;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
 }
 
 footer {
