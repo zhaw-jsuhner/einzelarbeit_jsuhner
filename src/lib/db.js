@@ -403,8 +403,6 @@ async function createPlayer(player) {
 
   let id_counter = await countPlayers();
   player._id = id_counter + 1;
-
-  player.club_id = 1;
   player.image_url = "/images/players/default_player.png";
 
   try {

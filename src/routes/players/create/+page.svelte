@@ -1,7 +1,7 @@
 <script>
-let { form } = $props();
-console.log(form);
-
+  let { form, data } = $props();
+  let clubs = data.clubs;
+  console.log(form);
 </script>
 
 <div class="container mt-5">
@@ -27,7 +27,7 @@ console.log(form);
     </div>
 
     <div class="mb-3">
-      <label for="nationality" class="form-label">Nationality</label>
+      <label for="nationality" class="form-label">Nationality (Country)</label>
       <input name="nationality" type="text" class="form-control" required />
     </div>
 
@@ -36,15 +36,14 @@ console.log(form);
       <input name="position" type="text" class="form-control" required />
     </div>
 
-    <p>Add club dropdown</p>
-    <!-- <label for="club" class="form-label">Club</label>
-    <select id="club" class="form-select" required>
+    <label for="club_id" class="form-label">Club</label>
+    <select name="club_id" class="form-select" required>
       <option selected disabled>Select a club</option>
       {#each clubs as club}
-      <option value={club.id}>{club.name}</option>
-    {/each}
-    </select> -->
-
-    <button type="submit" class="btn btn-primary"> Add League </button>
+        <option value={club._id}>{club.club_name}</option>
+      {/each}
+    </select>
+    <br />
+    <button type="submit" class="btn btn-primary"> Add Player </button>
   </form>
 </div>

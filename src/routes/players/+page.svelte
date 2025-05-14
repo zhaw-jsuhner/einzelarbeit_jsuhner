@@ -3,7 +3,7 @@
 
   let { data } = $props();
 
-  let players = data.players;
+  let players = $state(data.players);
   let clubs = data.clubs;
 
   let selectedClub = $state();
@@ -20,8 +20,8 @@
     new Set(players.map((player) => player.position).filter(Boolean))
   ).sort();
 
-  let minAge;
-  let maxAge;
+  let minAge = $state();
+  let maxAge = $state();
 
   const today = new Date();
   players = players.map((player) => {
