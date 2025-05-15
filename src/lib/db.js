@@ -256,8 +256,6 @@ async function createClub(club) {
 
   let id_counter = await countClubs();
   club._id = id_counter + 1;
-
-  club.fk_league = 3;
   club.badge_url = "/images/clubs/default_club.png";
 
   try {

@@ -1,7 +1,7 @@
 <script>
-let { form } = $props();
-console.log(form);
-
+  let { form, data } = $props();
+  let leagues = data.leagues;
+  leagues.sort((a, b) => a.league_name.localeCompare(b.league_name));
 </script>
 
 <div class="container mt-5">
@@ -26,14 +26,14 @@ console.log(form);
       <input name="year_founded" type="number" class="form-control" required />
     </div>
 
-    <p>Add league dropdown</p>
-    <!-- <label for="club" class="form-label">Club</label>
-    <select id="club" class="form-select" required>
-      <option selected disabled>Select a club</option>
-      {#each clubs as club}
-      <option value={club.id}>{club.name}</option>
-    {/each}
-    </select> -->
+    <label for="league_id" class="form-label">League</label>
+    <select name="league_id" class="form-select" required>
+      <option selected disabled>Select a league</option>
+      {#each leagues as league}
+        <option value={league._id}>{league.league_name}</option>
+      {/each}
+    </select>
+    <br />
 
     <button type="submit" class="btn btn-primary"> Add Club </button>
   </form>

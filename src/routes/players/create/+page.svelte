@@ -1,7 +1,7 @@
 <script>
   let { form, data } = $props();
   let clubs = data.clubs;
-  console.log(form);
+  clubs.sort((a, b) => a.club_name.localeCompare(b.club_name));
 </script>
 
 <div class="container mt-5">
@@ -45,5 +45,6 @@
     </select>
     <br />
     <button type="submit" class="btn btn-primary"> Add Player </button>
+    <br>
   </form>
 </div>
